@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
+/* Force Background Color Everywhere */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0f172a !important;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html, body {
+  background-color: #0f172a !important;
+  color: #94a3b8 !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
+/* Remove any default Next.js dark/light mode styles */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f172a !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme {
+  @keyframes loading-bar {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0%); }
+    100% { transform: translateX(100%); }
+  }
+  --animate-loading-bar: loading-bar 2.5s infinite ease-in-out;
+}
+
+/* globals.css mein add karo */
+.transition-all {
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect for the card */
+}
+
+@keyframes slideInPanel {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideToRight {
+  from { transform: translateX(0) scale(1); }
+  /* Responsive shift: 35vw desktop ke liye, mobile pe thoda kam */
+  to { transform: translateX(25vw) scale(0.9); } 
+}
+
+.animate-slide-in-panel {
+  animation: slideInPanel 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-to-right {
+  animation: slideToRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Scrollbar for the about panel */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #22d3ee;
+  border-radius: 10px;
+}
+
+/* app/globals.css */
+* {
+  scrollbar-width: none !important;
+}
+*::-webkit-scrollbar {
+  display: none !important;
 }
