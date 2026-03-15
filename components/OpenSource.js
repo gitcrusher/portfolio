@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function OpenSource() {
   const [hoveredProject, setHoveredProject] = useState(null);
 
-  const headingText = "open_source_"; 
+  const headingText = "Open Source"; 
 
   const contributions = [
     {
@@ -54,7 +54,7 @@ export default function OpenSource() {
             whileInView={{ opacity: 1 }}
             className="text-[#A68A64] font-mono text-[10px] tracking-[0.5em] uppercase block mb-4"
           >
-            / Community_Protocols
+            
           </motion.span>
           
           <div className="flex flex-wrap">

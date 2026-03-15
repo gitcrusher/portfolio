@@ -1,62 +1,114 @@
 "use client";
-import React from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Yahan IDs update kar di hain taaki page.js se match karein
   const navLinks = [
-  { name: 'Dossier', path: '#dossier' },
-  { name: 'Stack', path: '#skills' },
-  { name: 'OSS', path: '#opensource' }, // Open Source Link
-  { name: 'Projects', path: '#projects' },
-  { name: 'Contact', path: '#contact' },
-];
+    { name: "Dossier_", href: "#dossier" },     // #profile se badal kar #dossier kiya
+    { name: "Stack_", href: "#skills" },
+    { name: "OSS_", href: "#opensource" },
+    { name: "Experience_", href: "#experience" },
+    { name: "Contact_", href: "#contact" },
+  ];
+
+  const scrollToSection = (e, href) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      // Offset handle karne ke liye scroll logic
+      const offset = 80; // Navbar ki height ke hisab se padding
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = target.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      
+      setIsOpen(false);
+    }
+  };
 
   return (
-    <div className="fixed top-0 left-0 w-full flex justify-center z-[100] pointer-events-none">
-      <nav className="pointer-events-auto flex items-center justify-between w-full max-w-full px-10 py-6 
-        /* Rectangular Invisible Glass Look */
-        backdrop-blur-md 
-        border-b border-[#A68A64]/10 
-        rounded-none 
-        transition-all duration-500 ease-in-out">
+    <nav className={`fixed top-0 w-full z-[100] transition-all duration-500 ${scrolled ? 'py-4 bg-[#FAF7F2]/80 backdrop-blur-md border-b border-[#A68A64]/10' : 'py-8 bg-transparent'}`}>
+      <div className="max-w-7xl mx-auto px-10 md:px-24 flex justify-between items-center">
         
-        {/* Logo Section */}
-        <Link href="/">
-          <div className="text-[#4A4A4A] font-serif font-bold tracking-tighter text-lg cursor-pointer italic group">
-            AAYUSH <span className="text-[#A68A64] group-hover:text-[#4A4A4A] transition-colors duration-300">SONI</span>
-          </div>
-        </Link>
+        {/* Logo */}
+        <motion.a 
+          href="#" 
+          onClick={(e) => scrollToSection(e, '#dossier')}
+          className="text-[#4A4A4A] text-xl font-serif italic font-black tracking-tighter cursor-pointer"
+          whileHover={{ scale: 1.05 }}
+        >
+          AAYUSH<span className="text-[#A68A64]">SONI</span>
+        </motion.a>
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex gap-12 items-center">
+        {/* Desktop Links */}
+        <div className="hidden md:flex gap-10">
           {navLinks.map((link) => (
-            <Link 
+            <a 
               key={link.name} 
-              href={link.path}
-              className="text-[#4A4A4A]/60 hover:text-[#A68A64] font-mono text-[10px] tracking-[0.4em] uppercase transition-all duration-300 relative group"
+              href={link.href}
+              onClick={(e) => scrollToSection(e, link.href)}
+              className="text-[#4A4A4A] font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#A68A64] transition-colors relative group cursor-pointer"
             >
-              {link.name}_
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#A68A64]/50 transition-all duration-300 group-hover:w-full"></span>
-            </Link>
+              {link.name}
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#A68A64] transition-all group-hover:w-full" />
+            </a>
           ))}
         </div>
 
-        {/* Action Button */}
-        <div className="flex items-center gap-6">
-          <button 
-            onClick={() => window.open('/resume.pdf', '_blank')}
-            className="px-6 py-2 border border-[#A68A64]/30 text-[#A68A64] font-mono text-[9px] tracking-widest uppercase hover:bg-[#A68A64]/10 transition-all duration-300 rounded-sm"
-          >
-            CV_
-          </button>
-          
-          {/* Mobile Menu Icon */}
-          <div className="md:hidden flex flex-col gap-1.5 cursor-pointer">
-            <div className="w-5 h-[1px] bg-[#A68A64]"></div>
-            <div className="w-3 h-[1px] bg-[#A68A64]"></div>
+        {/* Mobile Toggle */}
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-[#4A4A4A]">
+          <div className="space-y-1">
+            <span className={`block w-6 h-0.5 bg-current transition-all ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+            <span className={`block w-6 h-0.5 bg-current ${isOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-6 h-0.5 bg-current transition-all ${isOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
           </div>
+        </button>
+
+        {/* CV Button */}
+        <div className="hidden md:block">
+           <button className="px-6 py-2 border border-[#A68A64]/30 rounded-full text-[#A68A64] font-mono text-[9px] uppercase tracking-widest hover:bg-[#A68A64] hover:text-white transition-all">
+             CV_
+           </button>
         </div>
-      </nav>
-    </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-full left-0 w-full bg-[#FAF7F2] border-b border-[#A68A64]/10 p-10 flex flex-col gap-6 md:hidden"
+          >
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="text-[#4A4A4A] font-mono text-sm uppercase tracking-widest"
+              >
+                {link.name}
+              </a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 }
