@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AGENT_ED_H | System Architect",
-  description: "Dossier of a System Architect and Machine Learning Enthusiast",
+  title: "AGENT_ED_H | AI and ML developer",
+  description: "Dossier of a AI and ML developer",
 };
 
 export default function RootLayout({

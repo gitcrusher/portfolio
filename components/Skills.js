@@ -41,7 +41,7 @@ export default function Skills() {
   const [nodes, setNodes] = useState([]);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-  const headingText = "cognitive_cloud_";
+  const headingText = "Skills & Expertise";
 
   useEffect(() => {
     const updateDimensions = () => {

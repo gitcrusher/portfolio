@@ -23,7 +23,7 @@ export default function Navbar() {
         {/* Logo Section */}
         <Link href="/">
           <div className="text-[#4A4A4A] font-serif font-bold tracking-tighter text-lg cursor-pointer italic group">
-            AGENT<span className="text-[#A68A64] group-hover:text-[#4A4A4A] transition-colors duration-300">_ED_H</span>
+            AAYUSH <span className="text-[#A68A64] group-hover:text-[#4A4A4A] transition-colors duration-300">SONI</span>
           </div>
         </Link>
 
