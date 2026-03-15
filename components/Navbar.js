@@ -4,11 +4,12 @@ import Link from 'next/link';
 
 export default function Navbar() {
   const navLinks = [
-    { name: 'Dossier', path: '/' },
-    { name: 'Projects', path: '/#projects' }, // Home page ke section par scroll karega
-    { name: 'Stack', path: '/skills' },       // Tere app/skills folder par le jayega
-    { name: 'Contact', path: '/#contact' },   // Home page footer par
-  ];
+  { name: 'Dossier', path: '#dossier' },
+  { name: 'Stack', path: '#skills' },
+  { name: 'OSS', path: '#opensource' }, // Open Source Link
+  { name: 'Projects', path: '#projects' },
+  { name: 'Contact', path: '#contact' },
+];
 
   return (
     <div className="fixed top-0 left-0 w-full flex justify-center z-[100] pointer-events-none">

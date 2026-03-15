@@ -6,6 +6,7 @@ import ProfileLayout from '@/components/ProfileLayout';
 import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
 import Navbar from '@/components/Navbar';
+import OpenSource from '@/components/OpenSource';
 
 export default function Home() {
   // Ye line miss ho gayi thi, isliye 'stage is not defined' aa raha tha
@@ -38,6 +39,11 @@ export default function Home() {
 
           <section id="skills">
             <Skills />
+          </section>
+
+          {/* --- OPEN SOURCE SECTION INSERTED HERE --- */}
+          <section id="opensource">
+            <OpenSource />
           </section>
 
           <section id="projects">

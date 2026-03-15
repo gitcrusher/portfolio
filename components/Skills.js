@@ -5,42 +5,35 @@ import * as d3 from 'd3-force';
 
 export default function Skills() {
   const allSkills = [
-    // Languages & Core
-    { name: "Python", size: 110, category: "intel" },
-    { name: "C++", size: 90, category: "intel" },
-    { name: "Java", size: 95, category: "intel" },
-    { name: "SQL", size: 85, category: "intel" },
-    { name: "HTML", size: 80, category: "intel" },
-    { name: "CSS", size: 80, category: "intel" },
-    { name: "Flutter", size: 100, category: "intel" },
-
-    // ML & Data Science
-    { name: "PyTorch", size: 120, category: "neural" },
-    { name: "TensorFlow", size: 115, category: "neural" },
-    { name: "Scikit-learn", size: 110, category: "neural" },
-    { name: "OpenCV", size: 105, category: "neural" },
-    { name: "NumPy", size: 90, category: "neural" },
-    { name: "Seaborn", size: 95, category: "neural" },
-    { name: "Matplotlib", size: 100, category: "neural" },
-
-    // Tools & Testing
-    { name: "JMeter", size: 95, category: "orch" },
-    { name: "TestNG", size: 90, category: "orch" },
-    { name: "Jira", size: 85, category: "orch" },
-
-    // Soft Skills
-    { name: "Leadership", size: 100, category: "soft" },
-    { name: "Diligence", size: 95, category: "soft" },
-    { name: "Versatility", size: 100, category: "soft" },
-    { name: "Agility", size: 90, category: "soft" },
-    { name: "Composure", size: 95, category: "soft" },
+    { name: "Python", size: 100, category: "intel" },
+    { name: "C++", size: 85, category: "intel" },
+    { name: "Java", size: 90, category: "intel" },
+    { name: "SQL", size: 80, category: "intel" },
+    { name: "HTML", size: 75, category: "intel" },
+    { name: "CSS", size: 75, category: "intel" },
+    { name: "Flutter", size: 95, category: "intel" },
+    { name: "PyTorch", size: 110, category: "neural" },
+    { name: "TensorFlow", size: 110, category: "neural" },
+    { name: "Scikit-learn", size: 105, category: "neural" },
+    { name: "OpenCV", size: 100, category: "neural" },
+    { name: "NumPy", size: 85, category: "neural" },
+    { name: "Seaborn", size: 90, category: "neural" },
+    { name: "Matplotlib", size: 95, category: "neural" },
+    { name: "JMeter", size: 90, category: "orch" },
+    { name: "TestNG", size: 85, category: "orch" },
+    { name: "Jira", size: 80, category: "orch" },
+    { name: "Leadership", size: 95, category: "soft" },
+    { name: "Diligence", size: 90, category: "soft" },
+    { name: "Versatility", size: 95, category: "soft" },
+    { name: "Agility", size: 85, category: "soft" },
+    { name: "Composure", size: 90, category: "soft" },
   ];
 
   const categories = {
-    intel: { text: "#A68A64", bg: "#E5D3B3" }, // Dusty Gold (Languages)
-    neural: { text: "#FAF7F2", bg: "#A68A64" }, // Charcoal (AI/ML)
-    orch: { text: "#4A4A4A", bg: "#FAF7F2" }, // Alabaster (Tools)
-    soft: { text: "#FFFFFF", bg: "#4A4A4A" }, // Dark (Soft Skills)
+    intel: { text: "#A68A64", bg: "#E5D3B3" },
+    neural: { text: "#FAF7F2", bg: "#A68A64" },
+    orch: { text: "#4A4A4A", bg: "#FAF7F2" },
+    soft: { text: "#FFFFFF", bg: "#4A4A4A" },
   };
 
   const playgroundRef = useRef(null);
@@ -79,32 +72,34 @@ export default function Skills() {
         });
       }
     };
-    window.addEventListener('resize', updateDimensions);
     updateDimensions();
+    window.addEventListener('resize', updateDimensions);
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
   useEffect(() => {
     if (dimensions.width === 0 || dimensions.height === 0) return;
 
+    // --- FIX: VISUAL CENTROID ADJUSTMENT ---
+    // Hum center ko thoda upar shift kar rahe hain (-20 or -30) taaki wo frame mein centered lage
+    const centerY = dimensions.height / 2 - 10; 
+
     const initialNodes = allSkills.map((skill) => ({
       ...skill,
-      x: dimensions.width / 2 + (Math.random() - 0.5) * 100,
-      y: dimensions.height / 2 + (Math.random() - 0.5) * 100,
-      vx: 0,
-      vy: 0,
+      x: dimensions.width / 2 + (Math.random() - 0.5) * 50,
+      y: centerY + (Math.random() - 0.5) * 50,
+      vx: 0, vy: 0,
     }));
 
     setNodes(initialNodes);
 
     const simulation = d3.forceSimulation(initialNodes)
-      .velocityDecay(0.25)
-      .force('center', d3.forceCenter(dimensions.width / 2, dimensions.height / 2).strength(0.8))
-      .force('charge', d3.forceManyBody().strength(40))
+      .velocityDecay(0.28)
+      .force('center', d3.forceCenter(dimensions.width / 2, centerY).strength(1)) // Max strength for centroid
+      .force('charge', d3.forceManyBody().strength(35))
       .force('collide', d3.forceCollide((d) => d.size / 2 + 10).strength(1))
-      .alphaTarget(0.1)
+      .alphaTarget(0.05)
       .on('tick', () => {
-        // Hard Boundary Clamping for all skills
         initialNodes.forEach(node => {
           const r = node.size / 2;
           if (node.x < r) node.x = r;
@@ -120,45 +115,43 @@ export default function Skills() {
   }, [dimensions]);
 
   return (
-    <section id="skills" className="relative w-full bg-[#FAF7F2] py-32 px-10 md:px-24 z-[60] overflow-hidden shadow-[0_-50px_100px_rgba(250,247,242,1)]">
-      <div className="max-w-6xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16 text-center"
-        >
-          <span className="text-[#A68A64] font-mono text-[10px] tracking-[0.5em] uppercase block mb-2">/ Expertise_Matrix</span>
-          <h2 className="text-[#4A4A4A] text-5xl md:text-7xl font-serif italic tracking-tighter lowercase leading-none">cognitive_cloud_</h2>
-        </motion.div>
+    <section id="skills" className="relative w-full bg-[#FAF7F2] py-12 overflow-hidden border-t border-[#A68A64]/10">
+      <div className="w-full px-10 md:px-24">
+        
+        <div className="mb-8 text-left">
+          <span className="text-[#A68A64] font-mono text-[10px] tracking-[0.5em] uppercase block mb-2 opacity-80">
+            / expertise_matrix
+          </span>
+          <h2 className="text-[#4A4A4A] text-5xl md:text-7xl font-serif italic tracking-tighter lowercase leading-none">
+            cognitive_cloud_
+          </h2>
+        </div>
 
         <div 
           ref={playgroundRef}
           onPointerMove={handlePointerMove}
           onPointerLeave={() => simulationRef.current?.alphaTarget(0.1)}
-          className="relative h-[700px] w-full border border-[#A68A64]/10 rounded-[60px] bg-white/40 backdrop-blur-sm cursor-crosshair overflow-hidden shadow-[inset_0_0_80px_rgba(230,220,200,0.2)]"
+          className="relative h-[550px] w-full border border-[#A68A64]/10 rounded-[40px] md:rounded-[60px] bg-white/40 backdrop-blur-sm cursor-crosshair overflow-hidden shadow-[inset_0_0_80px_rgba(230,220,200,0.05)]"
         >
           {nodes.map((skill, i) => (
             <motion.div
               key={i}
-              drag
-              dragConstraints={playgroundRef}
-              dragElastic={0.1}
-              whileHover={{ scale: 1.1, zIndex: 100 }}
-              className="absolute flex items-center justify-center rounded-full border border-[#A68A64]/20 p-4 active:cursor-grabbing text-center shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-shadow"
+              className="absolute flex items-center justify-center rounded-full border border-[#A68A64]/15 text-center cursor-none"
               style={{ 
                 width: skill.size, 
                 height: skill.size,
                 backgroundColor: categories[skill.category].bg,
                 color: categories[skill.category].text,
-                left: `${skill.x - skill.size / 2}px`,
-                top: `${skill.y - skill.size / 2}px`,
-                transform: `rotate(${skill.vx * 2}deg)`
+                left: skill.x - skill.size / 2,
+                top: skill.y - skill.size / 2,
+                boxShadow: "0 8px 25px rgba(166,138,100,0.1)",
+                zIndex: skill.size
               }}
+              whileHover={{ scale: 1.15 }}
             >
-              <div className="font-mono text-[10px] font-bold tracking-tight uppercase leading-tight select-none">
+              <span className="font-mono text-[9px] font-black uppercase tracking-tighter px-2 leading-none select-none">
                 {skill.name}
-              </div>
+              </span>
             </motion.div>
           ))}
         </div>
