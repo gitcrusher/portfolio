@@ -15,7 +15,7 @@ export default function OpenSource() {
       tags: ["Golang", "Docs"]
     },
     {
-      id: "WEBSITE", 
+      id: "GOFR WEBSITE", 
       role: "CONTRIBUTOR",
       image: "/oss2.png",
       description: "Working on website enhancements and issue resolution for better user accessibility.",
