@@ -7,9 +7,10 @@ import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
 import Navbar from '@/components/Navbar';
 import OpenSource from '@/components/OpenSource';
+// 1. Experience component import kiya
+import Experience from '@/components/Experience'; 
 
 export default function Home() {
-  // Ye line miss ho gayi thi, isliye 'stage is not defined' aa raha tha
   const [stage, setStage] = useState('loading'); 
 
   return (
@@ -41,9 +42,15 @@ export default function Home() {
             <Skills />
           </section>
 
-          {/* --- OPEN SOURCE SECTION INSERTED HERE --- */}
+          {/* 2. EXPERIENCE SECTION INSERTED HERE (Skills ke baad) */}
+          
+
           <section id="opensource">
             <OpenSource />
+          </section>
+
+          <section id="experience">
+            <Experience />
           </section>
 
           <section id="projects">
