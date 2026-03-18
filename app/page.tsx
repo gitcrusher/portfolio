@@ -9,6 +9,7 @@ import Navbar from '@/components/Navbar';
 import OpenSource from '@/components/OpenSource';
 import Experience from '@/components/Experience'; 
 import ResearchSection from '@/components/ResearchSection'; // 1. NAYA IMPORT
+import Ach from '@/components/AchievementsSection'; // 2. NAYA IMPORT
 
 export default function Home() {
   const [stage, setStage] = useState('loading'); 
@@ -54,6 +55,10 @@ export default function Home() {
           
           <section id="research">
             <ResearchSection />
+          </section>
+
+          <section id="achievements">
+            <Ach />
           </section>
 
           <section id="contact" className="min-h-[60vh] flex flex-col items-center justify-center border-t border-[#A68A64]/10">
