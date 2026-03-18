@@ -8,20 +8,18 @@ import Projects from '@/components/Projects';
 import Navbar from '@/components/Navbar';
 import OpenSource from '@/components/OpenSource';
 import Experience from '@/components/Experience'; 
+import ResearchSection from '@/components/ResearchSection'; // 1. NAYA IMPORT
 
 export default function Home() {
   const [stage, setStage] = useState('loading'); 
 
   return (
-    // YAHAN FIX KIYA HAI: overflow-x-hidden ki jagah overflow-clip lagaya hai
     <main className="relative bg-[#FAF7F2] min-h-screen overflow-clip">
       
-      {/* 1. LOADING STAGE */}
       {stage === 'loading' && (
         <LoadingScreen onFinished={() => setStage('reveal')} />
       )}
       
-      {/* 2. REVEAL STAGE */}
       {stage === 'reveal' && (
         <KernelReveal 
           imageUrl="/me.png" 
@@ -29,7 +27,6 @@ export default function Home() {
         />
       )}
 
-      {/* 3. FINAL PROFILE STAGE */}
       {stage === 'profile' && (
         <div className="animate-in fade-in duration-1000">
           <Navbar />
@@ -50,9 +47,13 @@ export default function Home() {
             <Experience />
           </section>
 
-          {/* Ab ye section properly FREEZE hoga screen par */}
           <section id="projects">
             <Projects />
+          </section>
+
+          
+          <section id="research">
+            <ResearchSection />
           </section>
 
           <section id="contact" className="min-h-[60vh] flex flex-col items-center justify-center border-t border-[#A68A64]/10">

@@ -12,13 +12,14 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // YAHAN NAYA LINK ADD KIYA HAI: "Projects_"
+  // YAHAN RESEARCH LINK ADD KIYA HAI
   const navLinks = [
     { name: "Dossier_", href: "#dossier" },     
     { name: "Stack_", href: "#skills" },
     { name: "OSS_", href: "#opensource" },
     { name: "Experience_", href: "#experience" },
-    { name: "Projects_", href: "#projects" }, // <-- Ye raha tumhara Projects link
+    { name: "Projects_", href: "#projects" },
+    { name: "Research_", href: "#research" }, // NAYA LINK
     { name: "Contact_", href: "#contact" },
   ];
 
@@ -26,8 +27,7 @@ export default function Navbar() {
     e.preventDefault();
     const target = document.querySelector(href);
     if (target) {
-      // Offset handle karne ke liye scroll logic
-      const offset = 80; // Navbar ki height ke hisab se padding
+      const offset = 80; 
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = target.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -46,7 +46,6 @@ export default function Navbar() {
     <nav className={`fixed top-0 w-full z-[100] transition-all duration-500 ${scrolled ? 'py-4 bg-[#FAF7F2]/80 backdrop-blur-md border-b border-[#A68A64]/10' : 'py-8 bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-10 md:px-24 flex justify-between items-center">
         
-        {/* Logo */}
         <motion.a 
           href="#" 
           onClick={(e) => scrollToSection(e, '#dossier')}
@@ -56,7 +55,6 @@ export default function Navbar() {
           AAYUSH<span className="text-[#A68A64]">SONI</span>
         </motion.a>
 
-        {/* Desktop Links */}
         <div className="hidden md:flex gap-10">
           {navLinks.map((link) => (
             <a 
@@ -71,7 +69,6 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Toggle */}
         <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-[#4A4A4A]">
           <div className="space-y-1">
             <span className={`block w-6 h-0.5 bg-current transition-all ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
@@ -80,7 +77,6 @@ export default function Navbar() {
           </div>
         </button>
 
-        {/* CV Button */}
         <div className="hidden md:block">
            <button className="px-6 py-2 border border-[#A68A64]/30 rounded-full text-[#A68A64] font-mono text-[9px] uppercase tracking-widest hover:bg-[#A68A64] hover:text-white transition-all">
              CV_
@@ -88,7 +84,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
