@@ -7,14 +7,14 @@ import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
 import Navbar from '@/components/Navbar';
 import OpenSource from '@/components/OpenSource';
-// 1. Experience component import kiya
 import Experience from '@/components/Experience'; 
 
 export default function Home() {
   const [stage, setStage] = useState('loading'); 
 
   return (
-    <main className="relative bg-[#FAF7F2] min-h-screen overflow-x-hidden">
+    // YAHAN FIX KIYA HAI: overflow-x-hidden ki jagah overflow-clip lagaya hai
+    <main className="relative bg-[#FAF7F2] min-h-screen overflow-clip">
       
       {/* 1. LOADING STAGE */}
       {stage === 'loading' && (
@@ -42,9 +42,6 @@ export default function Home() {
             <Skills />
           </section>
 
-          {/* 2. EXPERIENCE SECTION INSERTED HERE (Skills ke baad) */}
-          
-
           <section id="opensource">
             <OpenSource />
           </section>
@@ -53,6 +50,7 @@ export default function Home() {
             <Experience />
           </section>
 
+          {/* Ab ye section properly FREEZE hoga screen par */}
           <section id="projects">
             <Projects />
           </section>
