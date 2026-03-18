@@ -25,11 +25,10 @@ const projectData = [
     github: "https://github.com/aayush-soni/rayban-remix",
     about: "A sleek, responsive remix of a high-end e-commerce experience. Optimized for performance with smooth minimalist UI." 
   },
-  // 1. NAYA CARD DATA ADD KIYA (Video support ke saath)
   { 
     id: "04", 
     title: "Eye Cursor", 
-    videoUrl: "/project-video.mp4", // BHAI YAHAN APNE VIDEO KA NAAM DAAL DENA JO PUBLIC FOLDER MEIN HAI
+    videoUrl: "/project-video.mp4", // BHAI YAHAN APNE VIDEO KA NAAM 
     github: "https://github.com/gitcrusher/eye-controlled-mouse", 
     about: "NASA Space Apps Challenge Global Nominee. Machine learning model predicting plant phenology and pest occurrences." 
   }
@@ -37,6 +36,8 @@ const projectData = [
 
 function ProjectSlab({ project, index, progress }) {
   const ref = useRef();
+  // 1. VIDEO TRACKING REF: Isse hum video ko code se control karenge
+  const videoRef = useRef(null); 
   
   useFrame(() => {
     if (!ref.current || !progress) return;
@@ -54,6 +55,21 @@ function ProjectSlab({ project, index, progress }) {
     ref.current.rotation.y = xPos * -0.02; 
     
     ref.current.visible = Math.abs(xPos) < 25;
+
+    // 2. SMART PLAYBACK LOGIC: Jab card screen ke center ke paas ho (xPos < 8), tabhi play karo
+    if (videoRef.current) {
+      if (Math.abs(xPos) < 8) {
+        // Agar card samne hai aur video ruka hua hai, toh Play karo
+        if (videoRef.current.paused) {
+          videoRef.current.play().catch(e => console.log("Auto-play prevented by browser"));
+        }
+      } else {
+        // Agar card side mein chala gaya hai, toh wahi Pause kar do
+        if (!videoRef.current.paused) {
+          videoRef.current.pause();
+        }
+      }
+    }
   });
 
   return (
@@ -75,21 +91,20 @@ function ProjectSlab({ project, index, progress }) {
             boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(166, 138, 100, 0.15)' 
           }}>
             
-            {/* LEFT SIDE: Ab Iframe aur Video dono ko handle karega */}
             <div style={{ width: '70%', height: '100%', position: 'relative', borderRight: '1px solid rgba(166, 138, 100, 0.2)', overflow: 'hidden' }}>
               
-              {/* 2. LOGIC: Agar videoUrl hai toh Video tag chalao, warna Iframe */}
               {project.videoUrl ? (
+                // 3. AUTO-PLAY HATA DIYA: Ab ye sirf useFrame control se chalega
                 <video 
+                  ref={videoRef}
                   src={project.videoUrl} 
-                  autoPlay 
                   loop 
                   muted 
                   playsInline
                   style={{ 
                     width: '100%', 
                     height: '100%', 
-                    objectFit: 'cover', // Video screen ko perfectly fill karega
+                    objectFit: 'cover', 
                     position: 'absolute',
                     top: 0,
                     left: 0
@@ -124,7 +139,6 @@ function ProjectSlab({ project, index, progress }) {
               </a>
             </div>
 
-            {/* RIGHT SIDE (TEXT) */}
             <div style={{ width: '30%', height: '100%', backgroundColor: '#FFFFFF', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '40px', position: 'relative' }}>
               
               <div className="flex items-center gap-3 mb-5">
