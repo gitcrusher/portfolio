@@ -1,57 +1,40 @@
 "use client";
-import React from 'react';
+import React, { useRef } from 'react';
+import dynamic from 'next/dynamic';
+import { useScroll, useSpring, useTransform } from 'framer-motion';
+
+const ThreeScene = dynamic(() => import('./ThreeScene').then((mod) => mod.default), { 
+  ssr: false,
+  loading: () => <div className="h-screen w-full flex items-center justify-center bg-[#FAF7F2] font-mono text-[#A68A64]">STABILIZING_VAULT...</div>
+});
 
 export default function Projects() {
-  const missions = [
-    {
-      id: "MISSION_CALYX",
-      title: "Bloom Watch",
-      description: "NASA Global Nominee project. Real-time botanical monitoring system with advanced visual decoding.",
-      tech: "ML / Python"
-    },
-    {
-      id: "MISSION_CROP_PREDICT",
-      title: "Calyx Yield",
-      description: "Machine learning integration for rainfall and crop production analysis across Indian datasets.",
-      tech: "Data Science / Pandas"
-    }
-  ];
+  const containerRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
+
+  const cardProgress = useTransform(scrollYProgress, [0, 0.9], [0, 1]);
+  const smoothProgress = useSpring(cardProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   return (
-    <section id="projects" className="relative w-full bg-[#FAF7F2] py-20 px-10 md:px-24 z-[60] border-t border-[#E5D3B3]/30">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-[#4A4A4A] text-5xl md:text-7xl font-serif italic mb-16 tracking-tighter">ACTIVE_MISSIONS_</h2>
+    <section ref={containerRef} className="relative h-[500vh] bg-[#FAF7F2] w-full block">
+      
+      {/* Locked screen */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-[#FAF7F2]">
         
-        <div className="grid md:grid-cols-2 gap-10">
-          {missions.map((mission, i) => (
-            <div 
-              key={i} 
-              className="group p-10 bg-white border border-[#E5D3B3]/40 rounded-[50px] shadow-sm hover:shadow-xl hover:shadow-[#A68A64]/5 transition-all duration-500"
-            >
-              <div className="flex justify-between items-start mb-2">
-                <p className="text-[#A68A64] font-mono text-[10px] tracking-[0.4em] uppercase">
-                  {mission.id}
-                </p>
-                <span className="text-[#4A4A4A]/30 font-mono text-[9px] uppercase tracking-widest">
-                  {mission.tech}
-                </span>
-              </div>
-              
-              <h3 className="text-[#4A4A4A] text-3xl font-serif italic mb-4 lowercase">
-                {mission.title}
-              </h3>
-              
-              <p className="text-[#4A4A4A]/60 font-mono text-sm leading-relaxed mb-8">
-                {mission.description}
-              </p>
-              
-              {/* Animated Progress Line */}
-              <div className="relative w-full h-[1px] bg-[#E5D3B3]/30 overflow-hidden">
-                <div className="absolute inset-0 bg-[#A68A64]/50 w-10 group-hover:w-full transition-all duration-700 ease-in-out" />
-              </div>
-            </div>
-          ))}
+        {/* 3. HEADER OVERLAY FIX: pointer-events-none makes Interactions pass through */}
+        <div className="absolute top-24 left-10 md:left-24 z-50 pointer-events-none w-auto h-auto">
+          
+          <h2 className="text-[#4A4A4A] text-5xl md:text-7xl font-serif italic tracking-tighter leading-none">
+            Projects
+          </h2>
         </div>
+
+        {/* 3D Scene - Cards below the header */}
+        <div className="w-full h-full relative z-10">
+          <ThreeScene progress={smoothProgress} />
+        </div>
+
       </div>
     </section>
   );
