@@ -12,12 +12,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Yahan IDs update kar di hain taaki page.js se match karein
+  // YAHAN NAYA LINK ADD KIYA HAI: "Projects_"
   const navLinks = [
-    { name: "Dossier_", href: "#dossier" },     // #profile se badal kar #dossier kiya
+    { name: "Dossier_", href: "#dossier" },     
     { name: "Stack_", href: "#skills" },
     { name: "OSS_", href: "#opensource" },
     { name: "Experience_", href: "#experience" },
+    { name: "Projects_", href: "#projects" }, // <-- Ye raha tumhara Projects link
     { name: "Contact_", href: "#contact" },
   ];
 
