@@ -1,32 +1,32 @@
 "use client";
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import * as d3 from 'd3-force';
 
 export default function Skills() {
   const allSkills = [
-    { name: "Python", size: 100, category: "intel" },
-    { name: "C++", size: 85, category: "intel" },
-    { name: "Java", size: 90, category: "intel" },
-    { name: "SQL", size: 80, category: "intel" },
-    { name: "HTML", size: 75, category: "intel" },
-    { name: "CSS", size: 75, category: "intel" },
-    { name: "Flutter", size: 95, category: "intel" },
-    { name: "PyTorch", size: 110, category: "neural" },
-    { name: "TensorFlow", size: 110, category: "neural" },
-    { name: "Scikit-learn", size: 105, category: "neural" },
-    { name: "OpenCV", size: 100, category: "neural" },
-    { name: "NumPy", size: 85, category: "neural" },
-    { name: "Seaborn", size: 90, category: "neural" },
-    { name: "Matplotlib", size: 95, category: "neural" },
-    { name: "JMeter", size: 90, category: "orch" },
-    { name: "TestNG", size: 85, category: "orch" },
-    { name: "Jira", size: 80, category: "orch" },
-    { name: "Leadership", size: 95, category: "soft" },
-    { name: "Diligence", size: 90, category: "soft" },
-    { name: "Versatility", size: 95, category: "soft" },
-    { name: "Agility", size: 85, category: "soft" },
-    { name: "Composure", size: 90, category: "soft" },
+    { name: "Python", size: 110, category: "intel" },
+    { name: "C++", size: 90, category: "intel" },
+    { name: "Java", size: 95, category: "intel" },
+    { name: "SQL", size: 85, category: "intel" },
+    { name: "HTML", size: 80, category: "intel" },
+    { name: "CSS", size: 80, category: "intel" },
+    { name: "Flutter", size: 100, category: "intel" },
+    { name: "PyTorch", size: 120, category: "neural" },
+    { name: "TensorFlow", size: 120, category: "neural" },
+    { name: "Scikit-learn", size: 110, category: "neural" },
+    { name: "OpenCV", size: 105, category: "neural" },
+    { name: "NumPy", size: 90, category: "neural" },
+    { name: "Seaborn", size: 95, category: "neural" },
+    { name: "Matplotlib", size: 100, category: "neural" },
+    { name: "JMeter", size: 95, category: "orch" },
+    { name: "TestNG", size: 90, category: "orch" },
+    { name: "Jira", size: 85, category: "orch" },
+    { name: "Leadership", size: 105, category: "soft" },
+    { name: "Diligence", size: 95, category: "soft" },
+    { name: "Versatility", size: 100, category: "soft" },
+    { name: "Agility", size: 90, category: "soft" },
+    { name: "Composure", size: 95, category: "soft" },
   ];
 
   const categories = {
@@ -91,9 +91,9 @@ export default function Skills() {
     setNodes(initialNodes);
     const simulation = d3.forceSimulation(initialNodes)
       .velocityDecay(0.3)
-      .force('center', d3.forceCenter(dimensions.width / 2, centerY).strength(1))
-      .force('charge', d3.forceManyBody().strength(30))
-      .force('collide', d3.forceCollide((d) => d.size / 2 + 10).strength(1))
+      .force('center', d3.forceCenter(dimensions.width / 2, centerY).strength(0.8))
+      .force('charge', d3.forceManyBody().strength(40))
+      .force('collide', d3.forceCollide((d) => d.size / 2 + 15).strength(1))
       .alphaTarget(0.05)
       .on('tick', () => {
         initialNodes.forEach(node => {
@@ -110,24 +110,23 @@ export default function Skills() {
   }, [dimensions]);
 
   return (
-    <section id="skills" className="relative w-full bg-[#FAF7F2] py-20 overflow-visible min-h-[800px]">
+    <section id="skills" className="relative w-full bg-[#FAF7F2] py-20 overflow-visible min-h-[850px]">
       <div className="w-full px-10 md:px-24">
         
-        {/* High-Fi Header with Repeat Animation */}
+        {/* --- Heading with exact same logic as Projects --- */}
         <div className="mb-12 text-left flex flex-wrap">
           {headingText.split("").map((char, index) => (
             <motion.span
               key={index}
-              initial={{ opacity: 0, y: 30, rotateX: -90 }}
+              initial={{ opacity: 0, y: 40, rotateX: -90 }}
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-              // --- CRITICAL FIX: once: false taaki baar baar chale ---
-              viewport={{ once: false, amount: 0.5 }} 
+              viewport={{ once: false, amount: 0.1 }}
               transition={{ 
-                duration: 0.6, 
-                delay: index * 0.04,
-                ease: "easeOut" 
+                duration: 0.8, 
+                delay: index * 0.05, 
+                ease: [0.215, 0.61, 0.355, 1] 
               }}
-              className="text-[#4A4A4A] text-5xl md:text-7xl font-serif italic tracking-tighter inline-block origin-bottom"
+              className="text-[#4A4A4A] text-5xl md:text-7xl font-serif italic tracking-tighter inline-block origin-bottom leading-none"
             >
               {char === " " ? "\u00A0" : char}
             </motion.span>
@@ -138,15 +137,15 @@ export default function Skills() {
           ref={playgroundRef}
           onPointerMove={handlePointerMove}
           onPointerLeave={() => simulationRef.current?.alphaTarget(0.1)}
-          className="relative h-[600px] w-full border border-[#A68A64]/10 rounded-[60px] bg-white/40 backdrop-blur-sm overflow-hidden shadow-[inset_0_0_80px_rgba(230,220,200,0.05)]"
+          className="relative h-[600px] w-full border border-[#A68A64]/15 rounded-[60px] bg-white/40 backdrop-blur-md overflow-hidden shadow-[inset_0_0_80px_rgba(230,220,200,0.05)]"
         >
           {nodes.length > 0 && nodes.map((skill, i) => (
             <motion.div
               key={i}
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
-              viewport={{ once: false }} // Bubbles bhi baar baar scale honge
-              className="absolute flex items-center justify-center rounded-full border border-[#A68A64]/15 text-center"
+              viewport={{ once: false }}
+              className="absolute flex flex-col items-center justify-center rounded-full border border-white/30 text-center shadow-lg cursor-pointer"
               style={{ 
                 width: skill.size, 
                 height: skill.size,
@@ -156,9 +155,13 @@ export default function Skills() {
                 top: skill.y - skill.size / 2,
                 zIndex: skill.size
               }}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1, zIndex: 1000 }}
             >
-              <span className="font-mono text-[9px] font-black uppercase tracking-tighter px-2 leading-none select-none">
+              <div 
+                className="w-1 h-1 rounded-full mb-1.5 opacity-50" 
+                style={{ backgroundColor: categories[skill.category].text }}
+              />
+              <span className="font-sans text-[10px] font-extrabold uppercase tracking-widest px-2 leading-none select-none">
                 {skill.name}
               </span>
             </motion.div>
