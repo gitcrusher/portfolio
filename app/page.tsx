@@ -10,7 +10,8 @@ import OpenSource from '@/components/OpenSource';
 import Experience from '@/components/Experience'; 
 import ResearchSection from '@/components/ResearchSection'; 
 import Ach from '@/components/AchievementsSection'; 
-import EducationSection from '@/components/EducationSection'; // NAYA IMPORT
+import EducationSection from '@/components/EducationSection';
+import Contact from '@/components/contact'; // <-- NAYA IMPORT YAHAN HAI
 
 export default function Home() {
   const [stage, setStage] = useState('loading'); 
@@ -61,16 +62,15 @@ export default function Home() {
             <Ach />
           </section>
 
-          {/* EDUCATION SECTION ADDED HERE */}
           <section id="education">
             <EducationSection />
           </section>
 
-          <section id="contact" className="min-h-[60vh] flex flex-col items-center justify-center border-t border-[#A68A64]/10">
-            <span className="text-[#A68A64] font-mono text-[10px] tracking-[0.5em] uppercase mb-4">/ Final_Transmission</span>
-            <h2 className="text-[#4A4A4A] text-5xl font-serif italic tracking-tighter lowercase">contact_</h2>
-            <p className="text-[#4A4A4A]/60 font-mono text-xs mt-6 uppercase tracking-widest">[ Secure Connection Pending ]</p>
-          </section>
+          {/* CONTACT SECTION REPLACED HERE */}
+          <div id="contact">
+            <Contact />
+          </div>
+          
         </div>
       )}
     </main>
