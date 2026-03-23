@@ -36,10 +36,7 @@ export default function EducationSection() {
   return (
     <section id="education" className="relative w-full min-h-screen bg-[#FAF7F2] py-24 px-10 md:px-24 flex flex-col justify-center">
       
-      {/* Background Decorative Element */}
-      <div className="absolute top-20 left-10 opacity-[0.02] pointer-events-none select-none hidden md:block">
-        <h1 className="text-[20vw] font-serif italic text-[#4A4A4A] leading-none">Scholar</h1>
-      </div>
+      
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         <motion.div 
@@ -47,8 +44,8 @@ export default function EducationSection() {
           whileInView={{ opacity: 1, x: 0 }}
           className="mb-20"
         >
-          <span className="text-[#A68A64] font-mono text-[10px] tracking-[0.6em] uppercase block mb-4">Section_07 // Academic_History</span>
-          <h2 className="text-[#4A4A4A] text-6xl md:text-8xl font-serif italic tracking-tighter">education_</h2>
+          
+          <h2 className="text-[#4A4A4A] text-6xl md:text-8xl font-serif italic tracking-tighter">Education</h2>
         </motion.div>
 
         <div className="space-y-12">
