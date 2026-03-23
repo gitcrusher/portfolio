@@ -7,7 +7,10 @@ const defaultLogs = [
   "AGENT IDENTIFIED: Aayush_Soni",
   "CONNECTING TO DATA_PORTAL...",
   "OVERRIDING SYSTEM PROTOCOLS...",
-  "DECODING VISUAL INTERFACE..."
+  "DECODING VISUAL INTERFACE...",
+  "LOADING ASSETS...",
+  "ESTABLISHING SECURE CONNECTION...",
+  "FINALIZING ENVIRONMENT SETUP..."
 ];
 
 export default function LoadingScreen({ onFinished }) {
