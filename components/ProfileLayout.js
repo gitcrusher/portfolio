@@ -54,7 +54,7 @@ export default function ProfileLayout({ imageUrl }) {
               <h1 className="text-[#4A4A4A] text-5xl md:text-7xl font-serif italic leading-[0.9] tracking-tighter uppercase">AI & ML <br /> ENGINEER</h1>
               <p className="text-[#4A4A4A] font-mono text-sm border-l-2 border-[#A68A64]/40 pl-5 leading-relaxed">
                 Pursuing B.Tech in CSE Specialization AI/ML at <span className="text-[#4A4A4A] font-bold italic">LPU</span>. <br />
-                NASA Space Apps <span className="text-[#A68A64] font-bold italic">Honoree & Global Nominee</span>.
+                Building Intelligent Systems through <span className="text-[#A68A64] font-bold italic">AI & ML</span>.
               </p>
             </div>
           </div>
