@@ -7,7 +7,6 @@ const contactLinks = [
     id: "01",
     name: "GitHub",
     label: "Open Source & Projects",
-    // Apni GitHub link yahan daalo
     url: "https://github.com/aayush-soni",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
@@ -19,7 +18,6 @@ const contactLinks = [
     id: "02",
     name: "LinkedIn",
     label: "Professional Network",
-    // Apni LinkedIn link yahan daalo
     url: "https://linkedin.com/in/aayush-soni",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
@@ -31,9 +29,21 @@ const contactLinks = [
   },
   {
     id: "03",
+    name: "Scholar",
+    label: "Research Publications",
+    
+    url: "https://scholar.google.com/citations?user=4gPNJsMAAAAJ&hl=en&authuser=1", 
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+        <path d="M6 12v5c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-5"></path>
+      </svg>
+    )
+  },
+  {
+    id: "04",
     name: "LeetCode",
     label: "Algorithmic Problem Solving",
-    // Apni LeetCode link yahan daalo
     url: "https://leetcode.com/u/knightsmokers/",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
@@ -43,10 +53,9 @@ const contactLinks = [
     )
   },
   {
-    id: "04",
+    id: "05",
     name: "Gmail",
     label: "Direct Communication",
-    // Apni Email ID yahan daalo (mailto: zaroor rakhna)
     url: "mailto:your.email@gmail.com",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
@@ -56,7 +65,6 @@ const contactLinks = [
     )
   }
 ];
-
 export default function Contact() {
   return (
     <section className="relative w-full min-h-screen bg-[#FAF7F2] py-32 px-10 md:px-24 flex flex-col justify-center overflow-hidden">
