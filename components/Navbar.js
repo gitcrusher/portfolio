@@ -7,7 +7,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -19,7 +19,7 @@ export default function Navbar() {
     { name: "Projects", href: "#projects" },
     { name: "Research", href: "#research" },
     { name: "Achievement", href: "#achievements" },
-    { name: "Education", href: "#education" }, // NAYA LINK ADDED
+    { name: "Education", href: "#education" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -43,7 +43,18 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-[100] transition-all duration-500 ${scrolled ? 'py-4 bg-[#FAF7F2]/90 backdrop-blur-md border-b border-[#A68A64]/10 shadow-sm' : 'py-8 bg-transparent'}`}>
+    <nav 
+      className={`fixed top-0 w-full z-[100] transition-all duration-700 ${
+        scrolled 
+          ? 'py-4 bg-[#FAF7F2]/40 backdrop-blur-xl border-b border-[#A68A64]/10 shadow-[0_10px_30px_-10px_rgba(166,138,100,0.1)]' 
+          : 'py-8 bg-transparent'
+      }`}
+      style={{ 
+        // Force rendering on Safari
+        WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
+        backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none'
+      }}
+    >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex justify-between items-center gap-4">
         
         {/* LOGO */}
@@ -57,7 +68,7 @@ export default function Navbar() {
           AAYUSH<span className="text-[#A68A64]">SONI</span>
         </motion.a>
 
-        {/* DESKTOP LINKS - Responsive gap adjust kiya hai links badhne ki wajah se */}
+        {/* DESKTOP LINKS */}
         <div className="hidden lg:flex items-center gap-x-4 xl:gap-x-8">
           {navLinks.map((link) => (
             <a 
@@ -102,7 +113,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="absolute top-full left-0 w-full bg-[#FAF7F2] border-b border-[#A68A64]/10 overflow-hidden lg:hidden shadow-2xl"
+            className="absolute top-full left-0 w-full bg-[#FAF7F2]/95 backdrop-blur-2xl border-b border-[#A68A64]/10 overflow-hidden lg:hidden shadow-2xl"
           >
             <div className="p-10 flex flex-col gap-6">
               {navLinks.map((link, i) => (
