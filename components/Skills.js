@@ -1,206 +1,177 @@
 "use client";
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { motion } from 'framer-motion';
+import * as d3 from 'd3-force';
 
-const researchData = [
-  { 
-    id: "01", 
-    tag: "IEEE XPLORE",
-    tags: ["AI/ML", "DEEP LEARNING", "SECURITY"],
-    title: "AI in Digital Watermarking", 
-    fullTitle: "A Review of AI in Digital Watermarking",
-    year: "2025",
-    venue: "AUTOCOM International Conference",
-    summary: "Analyzed deep learning-based models for data integrity and security in digital watermarking. Published in IEEE Xplore, focusing on adversarial attack resilience.",
-    link: "https://ieeexplore.ieee.org/abstract/document/10956941",
-    ref: "REF_ID: IEEE/AUTO/2025/SONI"
-  },
-  { 
-    id: "02", 
-    tag: "IPR INDIA",
-    tags: ["PYTHON", "PREDICTIVE MODEL", "PATENT"],
-    title: "VOGAP Patent", 
-    fullTitle: "VOGAP: ML-Based Prothesis & Agri-Forecasting",
-    year: "2026",
-    venue: "Intellectual Property India",
-    summary: "A dual-scope research effort covering an ML-based Prothesis arm (Patent) and regional crop production prediction based on rainfall data.",
-    link: "https://github.com/aayush-soni",
-    ref: "PAT_NO: 2026/VOGAP/IN"
-  }
-];
+export default function Skills() {
+  const allSkills = [
+    { name: "Python", size: 110, category: "intel" },
+    { name: "C++", size: 90, category: "intel" },
+    { name: "Java", size: 95, category: "intel" },
+    { name: "SQL", size: 85, category: "intel" },
+    { name: "HTML", size: 80, category: "intel" },
+    { name: "CSS", size: 80, category: "intel" },
+    { name: "Django", size: 90, category: "intel" },
+    { name: "Rest API", size: 85, category: "intel" },
+    { name: "Flutter", size: 100, category: "intel" },
+    { name: "PyTorch", size: 120, category: "neural" },
+    { name: "TensorFlow", size: 120, category: "neural" },
+    { name: "Scikit-learn", size: 110, category: "neural" },
+    { name: "OpenCV", size: 105, category: "neural" },
+    { name: "NumPy", size: 90, category: "neural" },
+    { name: "Seaborn", size: 95, category: "neural" },
+    { name: "Matplotlib", size: 100, category: "neural" },
+    { name: "Git", size: 100, category: "orch" },
+    { name: "Docker", size: 105, category: "orch" },
+    { name: "Kubernetes", size: 110, category: "orch" },
+    { name: "Go", size: 90, category: "orch" },
+    { name: "JMeter", size: 95, category: "orch" },
+    { name: "TestNG", size: 90, category: "orch" },
+    { name: "Jira", size: 85, category: "orch" },
+    { name: "Leadership", size: 105, category: "soft" },
+    { name: "Diligence", size: 95, category: "soft" },
+    { name: "Versatility", size: 100, category: "soft" },
+    { name: "Agility", size: 90, category: "soft" },
+    { name: "Composure", size: 95, category: "soft" },
+  ];
 
-export default function ResearchFan() {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  const headingText = "Research"; // Heading text for animation
+  const categories = {
+    intel: { text: "#A68A64", bg: "#E5D3B3" },
+    neural: { text: "#FAF7F2", bg: "#A68A64" },
+    orch: { text: "#4A4A4A", bg: "#FAF7F2" },
+    soft: { text: "#FFFFFF", bg: "#4A4A4A" },
+  };
+
+  const playgroundRef = useRef(null);
+  const simulationRef = useRef(null);
+  const [nodes, setNodes] = useState([]);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  const headingText = "Skills & Expertise";
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (playgroundRef.current) {
+        const { offsetWidth, offsetHeight } = playgroundRef.current;
+        if (offsetWidth > 0 && offsetHeight > 0) {
+          setDimensions({ width: offsetWidth, height: offsetHeight });
+        }
+      }
+    };
+    const timer = setTimeout(updateDimensions, 100);
+    window.addEventListener('resize', updateDimensions);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', updateDimensions);
+    };
+  }, []);
+
+  const handlePointerMove = useCallback((e) => {
+    if (playgroundRef.current && nodes.length > 0) {
+      const rect = playgroundRef.current.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      nodes.forEach(node => {
+        const dx = node.x - mouseX;
+        const dy = node.y - mouseY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 150) {
+          const power = (150 - distance) / 150;
+          node.vx += (dx / distance) * power * 35;
+          node.vy += (dy / distance) * power * 35;
+        }
+      });
+      simulationRef.current?.alphaTarget(0.2).restart();
+    }
+  }, [nodes]);
+
+  useEffect(() => {
+    if (dimensions.width === 0 || dimensions.height === 0) return;
+    const centerY = dimensions.height / 2;
+    const initialNodes = allSkills.map((skill) => ({
+      ...skill,
+      x: dimensions.width / 2 + (Math.random() - 0.5) * 100,
+      y: centerY + (Math.random() - 0.5) * 100,
+      vx: 0, vy: 0,
+    }));
+    setNodes(initialNodes);
+    const simulation = d3.forceSimulation(initialNodes)
+      .velocityDecay(0.3)
+      .force('center', d3.forceCenter(dimensions.width / 2, centerY).strength(0.8))
+      .force('charge', d3.forceManyBody().strength(40))
+      .force('collide', d3.forceCollide((d) => d.size / 2 + 15).strength(1))
+      .alphaTarget(0.05)
+      .on('tick', () => {
+        initialNodes.forEach(node => {
+          const r = node.size / 2;
+          if (node.x < r) node.x = r;
+          if (node.x > dimensions.width - r) node.x = dimensions.width - r;
+          if (node.y < r) node.y = r;
+          if (node.y > dimensions.height - r) node.y = dimensions.height - r;
+        });
+        setNodes([...initialNodes]);
+      });
+    simulationRef.current = simulation;
+    return () => simulation.stop();
+  }, [dimensions]);
 
   return (
-    <section className="relative w-full min-h-screen bg-[#FAF7F2] py-32 px-10 md:px-24 flex flex-col items-center justify-center overflow-hidden">
-      
-      {/* Background Watermark */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.02] select-none">
-        <h1 className="text-[25vw] font-serif italic font-black">Papers</h1>
-      </div>
-
-      <div className="relative w-full max-w-7xl flex flex-col lg:flex-row items-center gap-16 lg:gap-24 z-10">
+    <section id="skills" className="relative w-full bg-[#FAF7F2] py-20 overflow-visible min-h-[850px]">
+      <div className="w-full px-10 md:px-24">
         
-        {/* LEFT: THE INTERACTIVE STACK */}
-        <div className="relative w-[280px] h-[400px] md:w-[380px] md:h-[520px] shrink-0">
-          {researchData.map((paper, index) => {
-            const isHovered = hoveredIndex === index;
-            const isAnyHovered = hoveredIndex !== null;
-
-            return (
-              <motion.div
-                key={paper.id}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                onClick={() => window.open(paper.link, "_blank")}
-                animate={{
-                  x: isHovered ? (index === 0 ? -30 : 30) : 0, 
-                  y: isHovered ? -20 : (index * 12),
-                  rotate: isHovered ? (index === 0 ? -8 : 8) : (index * 3),
-                  zIndex: isHovered ? 50 : (10 - index),
-                  filter: isAnyHovered && !isHovered ? "blur(4px) grayscale(90%)" : "blur(0px) grayscale(0%)"
-                }}
-                transition={{ type: "spring", stiffness: 120, damping: 20 }}
-                className="absolute inset-0 bg-white border border-[#A68A64]/30 rounded-2xl shadow-[0_30px_60px_-15px_rgba(166,138,100,0.15)] p-8 md:p-10 cursor-pointer flex flex-col justify-between overflow-hidden"
-              >
-                {/* 1. Paper Fiber Texture */}
-                <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
-                
-                {/* 2. Top Metadata */}
-                <div className="relative">
-                  <div className="flex justify-between items-start mb-8 md:mb-10">
-                    <div className="flex flex-col">
-                      <span className="text-[#A68A64] font-mono text-[9px] md:text-[10px] font-black tracking-[0.2em] uppercase">{paper.tag}</span>
-                      <span className="text-[#333]/30 font-mono text-[7px] md:text-[8px] tracking-widest">{paper.ref}</span>
-                    </div>
-                    <span className="text-[#333]/30 font-mono text-[10px] md:text-xs font-bold border-b border-[#333]/10 pb-1">{paper.year}</span>
-                  </div>
-
-                  <h3 className="text-[#333] text-3xl md:text-4xl font-serif italic leading-[1.1] mb-6 pr-8">
-                    {paper.title}
-                  </h3>
-
-                  {/* 3. "Abstract" Mimic Lines */}
-                  <div className="space-y-2 mt-4 opacity-20">
-                    <div className="h-[1px] w-full bg-[#333]" />
-                    <div className="h-[1px] w-[90%] bg-[#333]" />
-                    <div className="h-[1px] w-[95%] bg-[#333]" />
-                    <div className="h-[1px] w-[60%] bg-[#333]" />
-                  </div>
-                </div>
-
-                {/* 4. Bottom Footer Section */}
-                <div className="relative border-t border-[#A68A64]/20 pt-6 flex justify-between items-end">
-                  <div className="space-y-4">
-                    <div>
-                      <p className="text-[#A68A64] font-mono text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] mb-1">Affiliation</p>
-                      <p className="text-[#555] font-serif italic text-base md:text-lg leading-tight max-w-[150px] md:max-w-[180px]">{paper.venue}</p>
-                    </div>
-                    
-                    {/* 5. Official Digital Seal */}
-                    <div className="w-10 h-10 md:w-12 md:h-12 border border-[#A68A64]/30 rounded-full flex items-center justify-center relative">
-                      <div className="absolute inset-1 border border-dashed border-[#A68A64]/40 rounded-full animate-[spin_15s_linear_infinite]" />
-                      <span className="text-[#A68A64] font-mono text-[5px] md:text-[6px] font-bold text-center leading-none">A.S.<br/>OFFICIAL</span>
-                    </div>
-                  </div>
-
-                  {/* 6. Document QR Placeholder Graphic */}
-                  <div className="w-10 h-10 border border-[#333]/10 p-1 flex flex-wrap gap-[2px]">
-                    {[...Array(9)].map((_, i) => (
-                      <div key={i} className={`w-1.5 h-1.5 md:w-2 md:h-2 ${Math.random() > 0.5 ? 'bg-[#A68A64]/20' : 'bg-transparent'}`} />
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+        {/* --- Heading with exact same logic as Projects --- */}
+        <div className="mb-12 text-left flex flex-wrap">
+          {headingText.split("").map((char, index) => (
+            <motion.span
+              key={index}
+              initial={{ opacity: 0, y: 40, rotateX: -90 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              viewport={{ once: false, amount: 0.1 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: index * 0.05, 
+                ease: [0.215, 0.61, 0.355, 1] 
+              }}
+              className="text-[#4A4A4A] text-5xl md:text-7xl font-serif italic tracking-tighter inline-block origin-bottom leading-none"
+            >
+              {char === " " ? "\u00A0" : char}
+            </motion.span>
+          ))}
         </div>
 
-        {/* RIGHT: DYNAMIC INFO PANEL */}
-        <div className="flex-1 w-full">
-          <AnimatePresence mode="wait">
+        <div 
+          ref={playgroundRef}
+          onPointerMove={handlePointerMove}
+          onPointerLeave={() => simulationRef.current?.alphaTarget(0.1)}
+          className="relative h-[600px] w-full border border-[#A68A64]/15 rounded-[60px] bg-white/40 backdrop-blur-md overflow-hidden shadow-[inset_0_0_80px_rgba(230,220,200,0.05)]"
+        >
+          {nodes.length > 0 && nodes.map((skill, i) => (
             <motion.div
-              key={hoveredIndex ?? "idle"}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="max-w-2xl"
+              key={i}
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: false }}
+              className="absolute flex flex-col items-center justify-center rounded-full border border-white/30 text-center shadow-lg cursor-pointer"
+              style={{ 
+                width: skill.size, 
+                height: skill.size,
+                backgroundColor: categories[skill.category].bg,
+                color: categories[skill.category].text,
+                left: skill.x - skill.size / 2,
+                top: skill.y - skill.size / 2,
+                zIndex: skill.size
+              }}
+              whileHover={{ scale: 1.1, zIndex: 1000 }}
             >
-              {hoveredIndex !== null ? (
-                <>
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="w-10 h-[3px] bg-[#A68A64]"></div>
-                    <span className="text-[#A68A64] font-mono text-[12px] md:text-[14px] font-black uppercase tracking-[0.6em]">
-                      {researchData[hoveredIndex].year} // 0{hoveredIndex + 1}
-                    </span>
-                  </div>
-                  
-                  <h2 className="text-[#222] text-5xl md:text-7xl font-serif italic tracking-tighter leading-none mb-8 uppercase">
-                    {researchData[hoveredIndex].fullTitle}
-                  </h2>
-                  
-                  <p className="text-[#555] font-sans text-lg md:text-xl leading-relaxed mb-10 font-medium tracking-tight">
-                    {researchData[hoveredIndex].summary}
-                  </p>
-
-                  <div className="flex flex-wrap gap-3 mb-12">
-                    {researchData[hoveredIndex].tags && researchData[hoveredIndex].tags.map((t, i) => (
-                      <span key={i} className="px-5 py-2 bg-[#FAF9F6] border border-[#E8E4DF] rounded-xl text-[#8C7355] font-mono text-[11px] font-bold uppercase tracking-widest shadow-sm">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <button 
-                    onClick={() => window.open(researchData[hoveredIndex].link, "_blank")}
-                    className="group flex items-center justify-center md:justify-start gap-4 text-white bg-[#A68A64] hover:bg-[#222] transition-all duration-500 px-8 py-4 rounded-full shadow-xl hover:scale-105 font-mono text-xs font-black tracking-widest uppercase w-fit"
-                  >
-                    Read Publication
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14"></path>
-                      <path d="m12 5 7 7-7 7"></path>
-                    </svg>
-                  </button>
-                </>
-              ) : (
-                <div className="py-10">
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="w-10 h-[3px] bg-[#A68A64]"></div>
-                    <span className="text-[#A68A64] font-mono text-[12px] md:text-[14px] font-black uppercase tracking-[0.6em]">
-                      SYSTEM_IDLE
-                    </span>
-                  </div>
-                  
-                  {/* ANIMATED HEADING APPLIED HERE */}
-                  <div className="flex flex-wrap mb-8">
-                    {headingText.split("").map((char, index) => (
-                      <motion.span
-                        key={index}
-                        initial={{ opacity: 0, y: 40, rotateX: -90 }}
-                        whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                        viewport={{ once: false, amount: 0.1 }}
-                        transition={{ 
-                          duration: 0.8, 
-                          delay: index * 0.05, 
-                          ease: [0.215, 0.61, 0.355, 1] 
-                        }}
-                        className="text-[#222] text-6xl md:text-8xl font-serif italic tracking-tighter uppercase inline-block origin-bottom leading-none"
-                      >
-                        {char === " " ? "\u00A0" : char}
-                      </motion.span>
-                    ))}
-                  </div>
-
-                  <p className="text-[#555] font-sans text-xl tracking-tight leading-relaxed font-medium">
-                    Hover over the document cores <br/> to initiate scan and reveal data.
-                  </p>
-                </div>
-              )}
+              <div 
+                className="w-1 h-1 rounded-full mb-1.5 opacity-50" 
+                style={{ backgroundColor: categories[skill.category].text }}
+              />
+              <span className="font-sans text-[10px] font-extrabold uppercase tracking-widest px-2 leading-none select-none">
+                {skill.name}
+              </span>
             </motion.div>
-          </AnimatePresence>
+          ))}
         </div>
       </div>
     </section>
