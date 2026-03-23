@@ -8,9 +8,7 @@ const defaultLogs = [
   "CONNECTING TO DATA_PORTAL...",
   "OVERRIDING SYSTEM PROTOCOLS...",
   "DECODING VISUAL INTERFACE...",
-  "LOADING ASSETS...",
-  "ESTABLISHING SECURE CONNECTION...",
-  "FINALIZING ENVIRONMENT SETUP..."
+  "LOADING ASSETS..."
 ];
 
 export default function LoadingScreen({ onFinished }) {

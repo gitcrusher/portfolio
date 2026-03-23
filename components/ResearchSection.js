@@ -1,171 +1,203 @@
 "use client";
 import React, { useState } from 'react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const researchData = [
   { 
     id: "01", 
-    title: "Bloom Watch", 
-    tag: "NASA_ARCHIVE", 
+    tag: "IEEE XPLORE",
+    tags: ["AI/ML", "DEEP LEARNING", "SECURITY"],
+    title: "AI in Digital Watermarking", 
+    fullTitle: "A Review of AI in Digital Watermarking",
     year: "2025",
-    publication: "NASA Space Apps Challenge (Global Nominee)",
-    citation: "Soni, A. (2025). Predictive Modeling of Plant Phenology and Pest Occurrences via Satellite Imagery.",
-    summary: "Independent research utilizing NASA's archival data to forecast plant life cycles. Therefore, it bridges the gap between satellite telemetry and agricultural protection; moreover, it provides a scalable framework for biodiversity monitoring.",
-    link: "https://github.com/your-username/bloom-watch"
+    venue: "AUTOCOM International Conference",
+    summary: "Analyzed deep learning-based models for data integrity and security in digital watermarking. Published in IEEE Xplore, focusing on adversarial attack resilience.",
+    link: "https://ieeexplore.ieee.org/abstract/document/10956941",
+    ref: "REF_ID: IEEE/AUTO/2025/SONI"
   },
   { 
     id: "02", 
-    title: "Crop Yield", 
-    tag: "AGRI_ML_MODEL", 
+    tag: "IPR INDIA",
+    tags: ["PYTHON", "PREDICTIVE MODEL", "PATENT"],
+    title: "VOGAP Patent", 
+    fullTitle: "VOGAP: ML-Based Prothesis & Agri-Forecasting",
     year: "2026",
-    publication: "Agricultural Data Science Repository",
-    citation: "Soni, A. (2026). Precision Forecasting in Indian Agriculture using XGBoost and Lasso Regression.",
-    summary: "A deep-dive into regional crop patterns using advanced ML. Consequently, it optimizes harvest predictions for Indian farmers; furthermore, the model accounts for soil and weather variance to ensure high-precision yield analysis.",
-    link: "https://github.com/your-username/crop-yield"
+    venue: "Intellectual Property India",
+    summary: "A dual-scope research effort covering an ML-based Prothesis arm (Patent) and regional crop production prediction based on rainfall data.",
+    link: "https://github.com/aayush-soni",
+    ref: "PAT_NO: 2026/VOGAP/IN"
   }
 ];
 
-export default function ResearchSection() {
-  const [stage, setStage] = useState('landing');
-  const [hovered, setHovered] = useState(null);
-  const containerRef = React.useRef(null);
-
-  // --- RESET LOGIC ---
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest < 0.15 || latest > 0.85) { 
-      if (stage !== 'landing') {
-        setStage('landing');
-        setHovered(null);
-      }
-    }
-  });
+export default function ResearchFan() {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const headingText = "Research";
 
   return (
-    <motion.section 
-      ref={containerRef}
-      className="relative w-full h-screen bg-[#FAF7F2] overflow-hidden flex items-center justify-center"
-    >
+    <section className="relative w-full min-h-screen bg-[#FAF7F2] py-32 px-10 md:px-24 flex flex-col items-center justify-center overflow-hidden">
       
-      {/* Background Decor */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full" 
-             style={{ backgroundImage: `radial-gradient(#A68A64 0.5px, transparent 0.5px)`, backgroundSize: '40px 40px' }} />
+      {/* Background Watermark */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.02] select-none">
+        <h1 className="text-[25vw] font-serif italic font-black">Papers</h1>
       </div>
 
-      <AnimatePresence mode="wait">
-        {stage === 'landing' ? (
-          <motion.div 
-            key="landing"
-            onClick={() => setStage('vault')}
-            exit={{ scale: 5, opacity: 0, filter: "blur(40px)" }}
-            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-            className="z-50 text-center cursor-pointer"
-          >
-            <motion.div 
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ repeat: Infinity, duration: 3 }}
-              className="w-24 h-24 border border-[#A68A64] rounded-full mx-auto mb-8 flex items-center justify-center"
-            >
-              <div className="w-2 h-2 bg-[#A68A64] rounded-full animate-ping" />
-            </motion.div>
-            <h2 className="text-[#4A4A4A] text-7xl font-serif italic tracking-tighter uppercase leading-none">
-              research_
-            </h2>
-            <p className="text-[#A68A64] font-mono text-[9px] mt-4 tracking-[0.4em] uppercase opacity-60">Initiate_Neural_Scan</p>
-          </motion.div>
-        ) : (
-          <motion.div 
-            key="vault"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="w-full h-full flex flex-col md:flex-row items-center justify-center gap-16 p-10 z-10"
-          >
-            {researchData.map((item, i) => (
-              <motion.div
-                key={item.id}
-                drag
-                dragConstraints={{ left: -100, right: 100, top: -100, bottom: 100 }}
-                onMouseEnter={() => setHovered(item.id)}
-                onMouseLeave={() => setHovered(null)}
-                onClick={() => window.open(item.link, "_blank")} 
-                className="relative w-full md:w-[500px] aspect-square flex items-center justify-center cursor-pointer group"
-              >
-                {/* The "Cell" Animation */}
-                <motion.div 
-                  animate={{ 
-                    scale: hovered === item.id ? 1.25 : 1,
-                    rotate: hovered === item.id ? 90 : 0,
-                    borderColor: hovered === item.id ? "#A68A64" : "rgba(166, 138, 100, 0.2)"
-                  }}
-                  className="absolute inset-0 border rounded-full flex items-center justify-center transition-colors duration-500"
-                >
-                  <div className="w-[95%] h-[95%] border border-[#A68A64]/10 rounded-full border-dashed animate-[spin_20s_linear_infinite]" />
-                </motion.div>
+      <div className="relative w-full max-w-7xl flex flex-col lg:flex-row items-center gap-16 lg:gap-24 z-10">
+        
+        {/* LEFT: THE INTERACTIVE STACK */}
+        <div className="relative w-[280px] h-[400px] md:w-[380px] md:h-[520px] shrink-0">
+          {researchData.map((paper, index) => {
+            const isHovered = hoveredIndex === index;
+            const isAnyHovered = hoveredIndex !== null;
 
-                {/* Content inside the Cell */}
-                <div className="text-center z-20 p-6 select-none">
-                  <span className="text-[#A68A64] font-mono text-[9px] tracking-widest block mb-2 opacity-50">PUBLISHED_{item.year}</span>
-                  <h3 className="text-[#4A4A4A] text-4xl md:text-5xl font-serif italic mb-4 group-hover:text-[#A68A64] transition-colors leading-none">
-                    {item.title.toLowerCase()}
+            return (
+              <motion.div
+                key={paper.id}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => window.open(paper.link, "_blank")}
+                animate={{
+                  x: isHovered ? (index === 0 ? -30 : 30) : 0, 
+                  y: isHovered ? -20 : (index * 12),
+                  rotate: isHovered ? (index === 0 ? -8 : 8) : (index * 3),
+                  zIndex: isHovered ? 50 : (10 - index),
+                  filter: isAnyHovered && !isHovered ? "blur(4px) grayscale(90%)" : "blur(0px) grayscale(0%)"
+                }}
+                transition={{ type: "spring", stiffness: 120, damping: 20 }}
+                className="absolute inset-0 bg-white border border-[#A68A64]/30 rounded-2xl shadow-[0_30px_60px_-15px_rgba(166,138,100,0.15)] p-8 md:p-10 cursor-pointer flex flex-col justify-between overflow-hidden"
+              >
+                {/* 1. Paper Fiber Texture */}
+                <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" />
+                
+                {/* 2. Top Metadata */}
+                <div className="relative">
+                  <div className="flex justify-between items-start mb-8 md:mb-10">
+                    <div className="flex flex-col">
+                      <span className="text-[#A68A64] font-mono text-[9px] md:text-[10px] font-black tracking-[0.2em] uppercase">{paper.tag}</span>
+                      <span className="text-[#333]/30 font-mono text-[7px] md:text-[8px] tracking-widest">{paper.ref}</span>
+                    </div>
+                    <span className="text-[#333]/30 font-mono text-[10px] md:text-xs font-bold border-b border-[#333]/10 pb-1">{paper.year}</span>
+                  </div>
+
+                  <h3 className="text-[#333] text-3xl md:text-4xl font-serif italic leading-[1.1] mb-6 pr-8">
+                    {paper.title}
                   </h3>
-                  
-                  <AnimatePresence>
-                    {hovered === item.id && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        className="space-y-4"
-                      >
-                        <p className="text-[#A68A64] font-mono text-[8px] uppercase tracking-widest border-y border-[#A68A64]/20 py-1">
-                          {item.publication}
-                        </p>
-                        <p className="text-[#4A4A4A]/40 font-mono text-[9px] italic leading-tight px-4">
-                          "{item.citation}"
-                        </p>
-                        <p className="text-[#4A4A4A]/70 font-mono text-[10px] leading-relaxed max-w-[280px] mx-auto">
-                          {item.summary}
-                        </p>
-                        <span className="text-[#A68A64] font-mono text-[9px] mt-4 block tracking-[0.3em] animate-pulse underline underline-offset-4">
-                          [ ACCESS_FULL_PAPER ]
-                        </span>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+
+                  {/* 3. "Abstract" Mimic Lines */}
+                  <div className="space-y-2 mt-4 opacity-20">
+                    <div className="h-[1px] w-full bg-[#333]" />
+                    <div className="h-[1px] w-[90%] bg-[#333]" />
+                    <div className="h-[1px] w-[95%] bg-[#333]" />
+                    <div className="h-[1px] w-[60%] bg-[#333]" />
+                  </div>
                 </div>
 
-                {/* Floating "Data Bits" */}
-                {[...Array(5)].map((_, j) => (
-                  <motion.div
-                    key={j}
-                    animate={{ 
-                      x: [0, Math.random() * 60 - 30, 0],
-                      y: [0, Math.random() * 60 - 30, 0]
-                    }}
-                    transition={{ repeat: Infinity, duration: 3 + j, ease: "easeInOut" }}
-                    className="absolute w-1 h-1 bg-[#A68A64] rounded-full opacity-30"
-                    style={{ top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%` }}
-                  />
-                ))}
+                {/* 4. Bottom Footer Section */}
+                <div className="relative border-t border-[#A68A64]/20 pt-6 flex justify-between items-end">
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-[#A68A64] font-mono text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] mb-1">Affiliation</p>
+                      <p className="text-[#555] font-serif italic text-base md:text-lg leading-tight max-w-[150px] md:max-w-[180px]">{paper.venue}</p>
+                    </div>
+                    
+                    {/* 5. Official Digital Seal */}
+                    <div className="w-10 h-10 md:w-12 md:h-12 border border-[#A68A64]/30 rounded-full flex items-center justify-center relative">
+                      <div className="absolute inset-1 border border-dashed border-[#A68A64]/40 rounded-full animate-[spin_15s_linear_infinite]" />
+                      <span className="text-[#A68A64] font-mono text-[5px] md:text-[6px] font-bold text-center leading-none">A.S.<br/>OFFICIAL</span>
+                    </div>
+                  </div>
+
+                  {/* 6. Document QR Placeholder Graphic */}
+                  <div className="w-10 h-10 border border-[#333]/10 p-1 flex flex-wrap gap-[2px]">
+                    {[...Array(9)].map((_, i) => (
+                      <div key={i} className={`w-1.5 h-1.5 md:w-2 md:h-2 ${Math.random() > 0.5 ? 'bg-[#A68A64]/20' : 'bg-transparent'}`} />
+                    ))}
+                  </div>
+                </div>
               </motion.div>
-            ))}
+            );
+          })}
+        </div>
 
-            <button 
-              onClick={() => setStage('landing')}
-              className="absolute top-12 left-1/2 -translate-x-1/2 text-[#A68A64] font-mono text-[10px] tracking-[0.5em] opacity-40 hover:opacity-100 transition-opacity z-[100]"
+        {/* RIGHT: DYNAMIC INFO PANEL */}
+        <div className="flex-1 w-full">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={hoveredIndex ?? "idle"}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="max-w-2xl"
             >
-              [ TERMINATE_SCAN ]
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {hoveredIndex !== null ? (
+                <>
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="w-10 h-[3px] bg-[#A68A64]"></div>
+                    <span className="text-[#A68A64] font-mono text-[12px] md:text-[14px] font-black uppercase tracking-[0.6em]">
+                      {researchData[hoveredIndex].year} 
+                    </span>
+                  </div>
+                  
+                  <h2 className="text-[#222] text-5xl md:text-7xl font-serif italic tracking-tighter leading-none mb-8 uppercase">
+                    {researchData[hoveredIndex].fullTitle}
+                  </h2>
+                  
+                  <p className="text-[#555] font-sans text-lg md:text-xl leading-relaxed mb-10 font-medium tracking-tight">
+                    {researchData[hoveredIndex].summary}
+                  </p>
 
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')]" />
-    </motion.section>
+                  <div className="flex flex-wrap gap-3 mb-12">
+                    {researchData[hoveredIndex].tags && researchData[hoveredIndex].tags.map((t, i) => (
+                      <span key={i} className="px-5 py-2 bg-[#FAF9F6] border border-[#E8E4DF] rounded-xl text-[#8C7355] font-mono text-[11px] font-bold uppercase tracking-widest shadow-sm">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <button 
+                    onClick={() => window.open(researchData[hoveredIndex].link, "_blank")}
+                    className="group flex items-center justify-center md:justify-start gap-4 text-white bg-[#A68A64] hover:bg-[#222] transition-all duration-500 px-8 py-4 rounded-full shadow-xl hover:scale-105 font-mono text-xs font-black tracking-widest uppercase w-fit"
+                  >
+                    Read Publication
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </>
+              ) : (
+                <div className="py-10">
+                  
+                  
+                  {/* ON-SCROLL TRIGGERED HEADING ANIMATION */}
+                  <div className="flex flex-wrap mb-8" style={{ perspective: "1000px" }}>
+                    {headingText.split("").map((char, index) => (
+                      <motion.span
+                        key={index}
+                        initial={{ opacity: 0, y: 40, rotateX: -90 }}
+                        whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                        viewport={{ once: false, amount: 0.1 }}
+                        transition={{ 
+                          duration: 0.8, 
+                          delay: index * 0.05, 
+                          ease: [0.215, 0.61, 0.355, 1] 
+                        }}
+                        className="text-[#222] text-6xl md:text-8xl font-serif italic tracking-tighter uppercase inline-block origin-bottom leading-none"
+                      >
+                        {char === " " ? "\u00A0" : char}
+                      </motion.span>
+                    ))}
+                  </div>
+
+                  <p className="text-[#555] font-sans text-xl tracking-tight leading-relaxed font-medium">
+                    Hover over the document cores <br/> to initiate scan and reveal data.
+                  </p>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
   );
 }
