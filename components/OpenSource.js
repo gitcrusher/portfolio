@@ -13,14 +13,14 @@ export default function OpenSource() {
       role: "CORE CONTRIBUTOR",
       image: "/oss1.png", 
       description: "Improved documentation for log levels to enhance developer experience and debugging clarity.",
-      tags: ["Golang", "Docs"]
+      tags: ["Golang", "Docs", "Merged PR", "Nov 25 - Feb 26"]
     },
     {
       id: "GOFR WEBSITE", 
       role: "CONTRIBUTOR",
       image: "/oss2.png",
       description: "Working on website enhancements and issue resolution for better user accessibility.",
-      tags: ["Website", "OpenSource"]
+      tags: ["Website", "Issue Created", "Jan 26"]
     }
   ];
 

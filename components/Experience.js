@@ -84,7 +84,7 @@ export default function Experience() {
               <div className="relative z-10">
                 {/* 1. Date & Badge */}
                 <motion.div variants={fadeInVariant} className="flex items-center gap-4 mb-8">
-                  <span className="px-4 py-1.5 bg-[#A68A64] text-white font-mono text-[10px] rounded-full tracking-widest uppercase">Education_Mentor</span>
+                  <span className="px-4 py-1.5 bg-[#A68A64] text-white font-mono text-[10px] rounded-full tracking-widest uppercase">Education_Mentor & Developer</span>
                   <span className="text-[#A68A64] font-mono text-[10px] tracking-widest uppercase">JUN'2024 - JUL'2024</span>
                 </motion.div>
                 
@@ -95,12 +95,12 @@ export default function Experience() {
                 
                 {/* 3. Description Text */}
                 <motion.p variants={fadeInVariant} className="text-[#4A4A4A]/70 font-mono text-sm md:text-base leading-relaxed mb-10 max-w-xl">
-                  Mentored school students in HTML, CSS, and JS, turning abstract code into tangible digital experiences for young minds.
+                  Mentored High School students in HTML, CSS, and JS Basics, turning abstract code into tangible digital experiences for young minds.
                 </motion.p>
                 
                 {/* 4. Skill Tags */}
                 <motion.div variants={fadeInVariant} className="flex flex-wrap gap-3">
-                  {["Syntax Basics", "CSS Art", "Logic Building"].map((tag) => (
+                  {["HTML", "CSS", "JavaScript"].map((tag) => (
                     <span key={tag} className="px-4 py-2 border border-[#A68A64]/20 rounded-full text-[#A68A64] font-mono text-[10px] uppercase bg-[#FAF7F2]/50">{tag}</span>
                   ))}
                 </motion.div>
