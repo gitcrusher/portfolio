@@ -97,6 +97,8 @@ export default function Experience() {
                 <motion.p variants={fadeInVariant} className="text-[#4A4A4A]/70 font-mono text-sm md:text-base leading-relaxed mb-10 max-w-xl">
                   Mentored High School students in HTML, CSS, and JS Basics, turning abstract code into tangible digital experiences for young minds.
                 </motion.p>
+
+                
                 
                 {/* 4. Skill Tags */}
                 <motion.div variants={fadeInVariant} className="flex flex-wrap gap-3">
