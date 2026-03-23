@@ -12,14 +12,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // UPDATED NAV LINKS: Added Research and Achievements
   const navLinks = [
     { name: "About", href: "#dossier" },     
     { name: "Skills", href: "#skills" },
     { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#projects" },
     { name: "Research", href: "#research" },
-    { name: "Achievement", href: "#achievements" }, // NAYA LINK FOR ACHIEVEMENTS
+    { name: "Achievement", href: "#achievements" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -48,8 +47,7 @@ export default function Navbar() {
         
         {/* LOGO */}
         <motion.a 
-          href="#" 
-          onClick={(e) => scrollToSection(e, '#dossier')}
+          href="/" 
           className="text-[#4A4A4A] text-xl font-serif italic font-black tracking-tighter cursor-pointer flex items-center gap-1"
           whileHover={{ scale: 1.02 }}
         >
@@ -75,9 +73,15 @@ export default function Navbar() {
         {/* CV BUTTON & HAMBURGER */}
         <div className="flex items-center gap-6">
           <div className="hidden sm:block">
-             <button className="px-5 py-2 border border-[#A68A64]/40 rounded-full text-[#A68A64] font-mono text-[9px] uppercase tracking-widest hover:bg-[#A68A64] hover:text-[#FAF7F2] transition-all duration-500">
+             <a 
+               href="/my-cv.pdf" 
+               download="Aayush_Soni_CV.pdf"
+               target="_blank"
+               rel="noopener noreferrer"
+               className="px-5 py-2 border border-[#A68A64]/40 rounded-full text-[#A68A64] font-mono text-[9px] uppercase tracking-widest hover:bg-[#A68A64] hover:text-[#FAF7F2] transition-all duration-500 inline-block text-center cursor-pointer"
+             >
                CV
-             </button>
+             </a>
           </div>
 
           <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-[#4A4A4A] p-2">
@@ -113,9 +117,16 @@ export default function Navbar() {
                   {link.name}
                 </motion.a>
               ))}
-              <button className="mt-4 w-full py-4 border border-[#A68A64]/20 text-[#A68A64] font-mono text-[10px] uppercase tracking-widest">
+              
+              <a 
+                href="/my-cv.pdf" 
+                download="Aayush_Soni_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 w-full py-4 border border-[#A68A64]/20 text-[#A68A64] font-mono text-[10px] uppercase tracking-widest text-center"
+              >
                 DOWNLOAD CV
-              </button>
+              </a>
             </div>
           </motion.div>
         )}

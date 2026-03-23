@@ -103,7 +103,7 @@ export default function KernelReveal({ imageUrl, onUnlocked }) {
                 </h2>
                 <div className="h-[1px] w-8 bg-[#A68A64] my-3" />
                 <p className="text-[#A68A64] text-[9px] md:text-[10px] font-mono tracking-widest uppercase">
-                  NASA Global Nominee
+                  NASA SPACE APP Honoree
                 </p>
               </div>
             </div>

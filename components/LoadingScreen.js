@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 const defaultLogs = [
   "INITIALIZING KERNEL v0.8.2...",
   "SCANNING BIOMETRIC DATA...",
-  "AGENT IDENTIFIED: ED_H",
-  "CONNECTING TO NASA_SPACE_APPS_PORTAL...",
+  "AGENT IDENTIFIED: Aayush_Soni",
+  "CONNECTING TO DATA_PORTAL...",
   "OVERRIDING SYSTEM PROTOCOLS...",
   "DECODING VISUAL INTERFACE..."
 ];

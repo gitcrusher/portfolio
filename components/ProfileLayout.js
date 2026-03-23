@@ -87,7 +87,7 @@ export default function ProfileLayout({ imageUrl }) {
                     <div className="h-[1px] w-8 bg-[#A68A64] my-3" />
                     
                     <p className="text-[#A68A64] text-[10px] font-mono tracking-widest uppercase">
-                      NASA Global Nominee
+                      NASA SPACE APP Honoree
                     </p>
                   </div>
                 </div>
