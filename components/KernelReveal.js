@@ -89,8 +89,8 @@ export default function KernelReveal({ imageUrl, onUnlocked }) {
         ${isUnlocked ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-12'}`}>
         
         <div className="relative p-[1.5px] bg-[#E5D3B3] rounded-3xl shadow-[0_30px_60px_rgba(166,138,100,0.12)]">
-          <div className="bg-white rounded-[23px] overflow-hidden border border-[#A68A64]/10 w-[280px] md:w-[360px]">
-            <div className="relative h-[400px] md:h-[480px]">
+          <div className="bg-white rounded-[23px] overflow-hidden border border-[#A68A64]/10 w-[280px] md:w-[440px]">
+            <div className="relative h-[400px] md:h-[560px]">
               <img 
                 src={imageUrl} 
                 className="h-full w-full object-cover contrast-110" 

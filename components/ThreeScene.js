@@ -20,17 +20,17 @@ const projectData = [
   },
   { 
     id: "03", 
-    title: "Rayban", 
-    url: "https://aayushsoni05.netlify.app/", 
-    github: "https://github.com/aayush-soni/rayban-remix",
-    about: "A sleek, responsive remix of a high-end e-commerce experience. Optimized for performance with smooth minimalist UI." 
-  },
-  { 
-    id: "04", 
     title: "Eye Cursor", 
     videoUrl: "/project-video.mp4", // BHAI YAHAN APNE VIDEO KA NAAM 
     github: "https://github.com/gitcrusher/eye-controlled-mouse", 
     about: "NASA Space Apps Challenge Global Nominee. Machine learning model predicting plant phenology and pest occurrences." 
+  },
+  { 
+    id: "04", 
+    title: "Rayban", 
+    url: "https://aayushsoni05.netlify.app/", 
+    github: "https://github.com/aayush-soni/rayban-remix",
+    about: "A sleek, responsive remix of a high-end e-commerce experience. Optimized for performance with smooth minimalist UI." 
   }
 ];
 
