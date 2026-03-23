@@ -19,7 +19,7 @@ const projectData = [
     title: "WORDWISE", 
     url: "https://www.canva.com/design/DAGs8NJTAzo/b2ruL7mqO_9cRjtwRHlZvg/view?embed", 
     github: "https://github.com/aayush-soni/wordwise",
-    about: "Developed a Flutter app with a Trie data structure-based auto-complete engine and dynamic Firebase backend with 200K+ words.",
+    about: "Developed a Flutter app (Word Dictionary With the video support) with a Trie data structure-based auto-complete engine and dynamic Firebase backend with 200K+ words.",
     tag: ["FLUTTER","DSA","FIREBASE"]
   },
   { 
