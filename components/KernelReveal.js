@@ -114,7 +114,7 @@ export default function KernelReveal({ imageUrl, onUnlocked }) {
       {!isUnlocked && (
         <div className="absolute top-16 z-40 flex flex-col items-center animate-pulse">
           <div className="font-serif text-xs md:text-base tracking-[0.4em] text-[#4A4A4A] opacity-50 uppercase text-center px-4">
-            [ {window.innerWidth < 768 ? 'Touch to reveal' : 'Reveal Identity'} ]
+            [ {window.innerWidth < 768 ? 'Touch to reveal' : 'Hover to Reveal Identity'} ]
           </div>
         </div>
       )}
