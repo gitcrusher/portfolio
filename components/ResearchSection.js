@@ -9,7 +9,7 @@ const researchData = [
     tags: ["AI/ML", "DEEP LEARNING", "SECURITY"],
     title: "AI in Digital Watermarking", 
     fullTitle: "A Review of AI in Digital Watermarking",
-    year: "2025",
+    year: "Apr 25",
     venue: "AUTOCOM International Conference",
     summary: "Analyzed deep learning-based models for data integrity and security in digital watermarking. Published in IEEE Xplore, focusing on adversarial attack resilience.",
     link: "https://ieeexplore.ieee.org/abstract/document/10956941",
@@ -19,12 +19,12 @@ const researchData = [
     id: "02", 
     tag: "IPR INDIA",
     tags: ["PYTHON", "PREDICTIVE MODEL", "PATENT"],
-    title: "VOGAP Patent", 
-    fullTitle: "VOGAP: ML-Based Prothesis & Agri-Forecasting",
-    year: "2026",
+    title: "ML - Prosthesis arm Patent", 
+    fullTitle: "A METHOD FOR INTELLIGENT HAND REHABILITATION USING A WEARABLE DEVICE",
+    year: "Since Nov 24",
     venue: "Intellectual Property India",
-    summary: "A dual-scope research effort covering an ML-based Prothesis arm (Patent) and regional crop production prediction based on rainfall data.",
-    link: "https://github.com/aayush-soni",
+    summary: "A ML-based Prothesis arm (Patent) under process",
+    link: "https://ipindia.gov.in/writereaddata/Portal/IPOJournal/1_436_1/part1.pdf",
     ref: "PAT_NO: 2026/VOGAP/IN"
   }
 ];
@@ -158,7 +158,7 @@ export default function ResearchFan() {
                     onClick={() => window.open(researchData[hoveredIndex].link, "_blank")}
                     className="group flex items-center justify-center md:justify-start gap-4 text-white bg-[#A68A64] hover:bg-[#222] transition-all duration-500 px-8 py-4 rounded-full shadow-xl hover:scale-105 font-mono text-xs font-black tracking-widest uppercase w-fit"
                   >
-                    Read Publication
+                    click the card to Acess the Paper
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M5 12h14"></path>
                       <path d="m12 5 7 7-7 7"></path>
