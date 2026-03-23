@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AGENT_ED_H | AI and ML developer",
+  title: "Aayush Soni",
   description: "Dossier of a AI and ML developer",
 };
 
