@@ -98,8 +98,8 @@ export default function KernelReveal({ imageUrl, onUnlocked }) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-95" />
               <div className="absolute bottom-8 left-8 text-left">
-                <h2 className="text-[#4A4A4A] text-2xl md:text-3xl font-black tracking-tighter uppercase italic leading-none">
-                  AAYUSH SONI
+                <h2 className="text-[#4A4A4A] text-2xl md:text-3xl font-black tracking-tighter italic leading-none">
+                  Aayush Soni
                 </h2>
                 <div className="h-[1px] w-8 bg-[#A68A64] my-3" />
                 <p className="text-[#A68A64] text-[9px] md:text-[10px] font-mono tracking-widest uppercase">

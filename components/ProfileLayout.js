@@ -79,8 +79,8 @@ export default function ProfileLayout({ imageUrl }) {
                   
                   {/* Text Section: Bold Italic Style maintained */}
                   <div className="absolute bottom-8 left-8 text-left">
-                    <h2 className="text-[#4A4A4A] text-3xl font-black tracking-tighter uppercase italic leading-none">
-                      AAYUSH SONI
+                    <h2 className="text-[#4A4A4A] text-3xl font-black tracking-tighter italic leading-none">
+                      Aayush Soni
                     </h2>
                     
                     {/* Decorative Divider */}
