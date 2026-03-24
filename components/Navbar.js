@@ -67,7 +67,7 @@ export default function Navbar() {
           whileHover={{ scale: 1.02 }}
         >
           <span className="w-2.5 h-2.5 bg-[#A68A64] rounded-full animate-pulse" />
-          AAYUSH<span className="text-[#A68A64]">SONI</span>
+          Aayush<span className="text-[#A68A64]">Soni</span>
         </motion.a>
 
         {/* DESKTOP LINKS */}
