@@ -23,6 +23,9 @@ export default function Navbar() {
     { name: "Contact", href: "#contact" },
   ];
 
+  // PASTE YOUR GOOGLE DRIVE LINK HERE
+  const cvLink = "https://drive.google.com/file/d/1XQ-7fIBdpyCHAdqNXuEzGF8lGALYyTQP/view?usp=sharing";
+
   const scrollToSection = (e, href) => {
     e.preventDefault();
     const target = document.querySelector(href);
@@ -50,7 +53,6 @@ export default function Navbar() {
           : 'py-8 bg-transparent'
       }`}
       style={{ 
-        // Force rendering on Safari
         WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
         backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none'
       }}
@@ -83,12 +85,13 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* CV BUTTON */}
+        {/* CV BUTTON - DESKTOP */}
         <div className="flex items-center gap-6 ml-auto shrink-0">
           <div className="hidden sm:block">
              <a 
-               href="/my-cv.pdf" 
-               download="Aayush_Soni_CV.pdf"
+               href={cvLink}
+               target="_blank"
+               rel="noopener noreferrer"
                className="px-6 py-2 border-2 border-[#A68A64] rounded-full text-[#A68A64] font-serif italic font-black text-[11px] uppercase tracking-widest hover:bg-[#A68A64] hover:text-[#FAF7F2] transition-all duration-500 inline-block text-center cursor-pointer shadow-sm"
              >
                CV
@@ -129,11 +132,15 @@ export default function Navbar() {
                   {link.name}
                 </motion.a>
               ))}
+              
+              {/* CV BUTTON - MOBILE */}
               <a 
-                href="/my-cv.pdf" 
+                href={cvLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-4 w-full py-5 border-2 border-[#A68A64] text-[#A68A64] font-serif italic font-black text-[14px] uppercase tracking-widest text-center rounded-xl"
               >
-                DOWNLOAD CV
+                VIEW CV
               </a>
             </div>
           </motion.div>
