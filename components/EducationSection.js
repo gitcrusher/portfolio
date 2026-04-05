@@ -9,7 +9,7 @@ const educationData = [
     degree: "B.Tech in Computer Science (AI & ML)",
     duration: "2023 — 2027",
     status: "In Progress",
-    gpa: "Current Pursuit",
+    gpa: "8.11",
     location: "Punjab, India",
     details: [
       "Specializing in Artificial Intelligence and Machine Learning.",
@@ -23,7 +23,7 @@ const educationData = [
     degree: "Science Stream (PCM)",
     duration: "2021 — 2023",
     status: "Completed",
-    gpa: "High Merit",
+    gpa: "7.1",
     location: "India",
     details: [
       "Focused on Advanced Mathematics and Physics.",

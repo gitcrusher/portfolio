@@ -24,7 +24,7 @@ export default function Navbar() {
   ];
 
   // PASTE YOUR GOOGLE DRIVE LINK HERE
-  const cvLink = "https://drive.google.com/file/d/1XQ-7fIBdpyCHAdqNXuEzGF8lGALYyTQP/view?usp=sharing";
+  const cvLink = "https://drive.google.com/file/d/1dfHp7ZVPbkXkVTF6zXqHSeKiIUQ62F78/view?usp=sharing";
 
   const scrollToSection = (e, href) => {
     e.preventDefault();
