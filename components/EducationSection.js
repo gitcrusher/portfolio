@@ -9,7 +9,7 @@ const educationData = [
     degree: "B.Tech in Computer Science (AI & ML)",
     duration: "2023 — 2027",
     status: "In Progress",
-    gpa: "8.11",
+    gpa: "8.21",
     location: "Punjab, India",
     details: [
       "Specializing in Artificial Intelligence and Machine Learning.",
